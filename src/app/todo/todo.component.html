@@ -1,23 +1,25 @@
 <h1 [ngStyle]="{color:'blue'}">Liste des tâches á réaliser</h1>
 <p>Nous sommes le {{ today | date: 'dd/MM/yyyy' }}</p>
 <ul class="list-group">
-  <li class="list-group-item" *ngFor="let todo of todoS, let i = index">
-    <div [ngClass]="{encours:todo.todoStatus,terminee:!todo.todoStatus}">
-        <a [href]="todo.todoImage">
-        <img [src]="todo.todoImage" />
-        </a>
-        {{todo.todoName | uppercase}}
+    <li class="list-group-item" *ngFor="let todo of todoS, let i = index">
+        <div [ngClass]="{encours:todo.todoStatus,terminee:!todo.todoStatus}">
+            <a [href]="todo.todoImage">
+                <img [src]="todo.todoImage" />
+            </a>
+            {{todo.todoName | uppercase}}
 
-        <button class="btn btn-primary" [disabled] = "todo.todoStatus" (click) = "onChangeStatus(i)"> En cours </button>
+            <button class="btn btn-primary" [disabled]="todo.todoStatus" (click)="onChangeStatus(i)"> En cours </button>
 
-        <button class="btn btn-success" [disabled] = "!todo.todoStatus" (click) = "onChangeStatus(i)"> Terminé</button>
-        <!-- Action de Modification -->
+            <button class="btn btn-success" [disabled]="!todo.todoStatus" (click)="onChangeStatus(i)"> Terminé</button>
+            <!-- Action de Modification -->
 
-        <button class="btn btn-danger"  *ngIf ="!todo.isModif" (click) = "onIsModif(i)"> Modifier </button>
+            <button class="btn btn-danger" *ngIf="!todo.isModif" (click)="onIsModif(i)"> Modifier </button>
 
-        <button class="btn btn-success"  *ngIf ="todo.isModif" (click) = "onIsModif(i)"> Modification terminée</button>
+            <button class="btn btn-success" *ngIf="todo.isModif" (click)="onIsModif(i)"> Modification terminée</button>
 
-        <input *ngIf ="todo.isModif" class="form-control" [(ngModel)] ="todo.todoName"/>
-    </div>
-  </li>
+            <button class="btn btn-success mr-1" (click)="onView(i)"> En savoir plus</button>
+
+            <input *ngIf="todo.isModif" class="form-control" [(ngModel)]="todo.todoName" />
+        </div>
+    </li>
 </ul>
